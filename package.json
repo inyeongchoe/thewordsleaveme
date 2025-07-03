@@ -1,0 +1,25 @@
+{
+  "name": "words",
+  "version": "1.0.0",
+  "homepage": "https://inyeongchoe.github.io/thewordsleaveme",
+  "description": "the words leave me...",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+  "author": "inyeong choi",
+  "license": "ISC",
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
+    "three": "^0.178.0",
+    "troika-three-text": "^0.52.4"
+  },
+  "devDependencies": {
+    "@types/three": "^0.178.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5.8.3",
+    "vite": "^4.0.0"
+  }
+}

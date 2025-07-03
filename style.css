@@ -1,0 +1,102 @@
+:root {
+  --clr-text: #ff5733;
+  --clr-selection: #ff2d00;
+  --clr-background: #fffdfd;
+}
+
+
+
+@font-face {
+  font-family: Relationship of mélodrame;
+  src: url("/fonts/Relationship of mélodrame.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+body {
+  background: var(--clr-background);
+}
+
+canvas#webgl-canvas {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+::selection {
+  background-color: var(--clr-selection);
+  color: var(--clr-text);
+}
+
+::-moz-selection {
+  background-color: var(--clr-selection);
+  color: var(--clr-text);
+}
+
+.text__1 {
+  color: var(--clr-text);
+  text-align: center;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 0;
+  font-family: 'Relationship of mélodrame', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+  .text__1 {
+    font-size: 13%;
+  }
+}
+
+#play-btn {
+    font-family: 'Relationship of mélodrame', sans-serif;
+    font-size: 40px;
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    padding:10px 20px;
+    background: transparent;
+    color:black;
+    border:none;
+    border-radius:4px;
+    cursor:pointer;
+    z-index:999;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 17.6em;
+  padding-top: 5em;
+}
+
+.container section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section__main__content {
+  gap: 5.6em;
+}
+
+.text__1 {
+  font-size: 19.4em;
+  font-weight: 400;
+  max-width: 45em;
+}

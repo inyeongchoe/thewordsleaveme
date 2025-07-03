@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",                          // 최신 ES 기능 사용
+    "module": "esnext",                          // ES 모듈 방식
+    "moduleResolution": "node",
+    "strict": true,                              // 엄격 모드
+    "esModuleInterop": true,                     // CommonJS 호환
+    "skipLibCheck": true,                        // 라이브러리 선언 검사 생략
+    "forceConsistentCasingInFileNames": true,    // 파일명 대소문자 일관성
+    "allowJs": false,                            // JS 파일 허용 여부
+    "resolveJsonModule": true,                   // JSON import 허용
+    "isolatedModules": true,                     // 개별 파일 트랜스파일
+    "sourceMap": true,                           // 디버깅용 소스맵 생성
+    "baseUrl": ".",                              // 절대경로 베이스
+    "paths": {
+      "@/*": ["src/*"]                           // src 절대 경로 매핑 (선택)
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],  // 컴파일 대상
+  "exclude": ["node_modules", "dist"]           // 제외 대상
+}
