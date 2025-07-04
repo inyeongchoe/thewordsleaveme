@@ -24,7 +24,6 @@ class App {
       backgroundColor: '#ff2d00',
       pointerEvents: 'none', zIndex: '-1'
     });
-    // Insert as the first child of body to ensure it's the lowest layer
     document.body.insertBefore(this.bgFill, document.body.firstChild);
 
     // Setup WebGL renderer
@@ -35,16 +34,21 @@ class App {
       width: '100vw', height: '100vh',
       pointerEvents: 'none', zIndex: '0'
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(window.innerWidth, window.innerHeight, true);
+    this.renderer.outputEncoding = THREE.sRGBEncoding;
+
 
     // Setup orthographic camera
     const { innerWidth: w, innerHeight: h } = window;
     this.camera = new THREE.OrthographicCamera(-w/2, w/2, h/2, -h/2, 0.1, 1000);
     this.camera.position.z = 10;
 
-    // Mouse & resize
+    // Input events
     window.addEventListener('mousemove', this.onMouseMove.bind(this));
+    window.addEventListener('touchstart', this.onTouchMove.bind(this), { passive: false });
+    window.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+    window.addEventListener('touchend', () => this.mouse.set(-9999, -9999));
     window.addEventListener('resize', this.onResize.bind(this));
     document.body.style.overflow = 'auto';
 
@@ -60,10 +64,25 @@ class App {
       playBtn.textContent = 'Play';
     }
 
-    // Initialize mic effect and particles
+    // Initialize mic and wait for fonts to load before drawing
     this.initMic();
-    this.createParticleText();
-    requestAnimationFrame(this.animate.bind(this));
+    Promise.all([
+      document.fonts.load(`10px "Timeless"`),
+      document.fonts.load(`10px "Relationship of mélodrame"`)
+    ]).then(() => {
+      this.createParticleText();
+      requestAnimationFrame(this.animate.bind(this));
+    });
+  }
+
+  private onTouchMove(e: TouchEvent) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const r = this.renderer.domElement.getBoundingClientRect();
+    this.mouse.set(
+      touch.clientX - r.left - r.width / 2,
+      -(touch.clientY - r.top - r.height / 2)
+    );
   }
 
   private async initMic() {
@@ -103,13 +122,11 @@ class App {
   private startBgFill() {
     const duration = this.audio.duration || 0;
     this.bgFill.style.transition = `width ${duration}s linear`;
-    // trigger reflow
     this.bgFill.getBoundingClientRect();
     this.bgFill.style.width = '100%';
   }
 
   private pauseBgFill() {
-    // freeze width at current progress
     const percent = (this.audio.currentTime / (this.audio.duration || 1)) * 100;
     this.bgFill.style.transition = 'none';
     this.bgFill.style.width = `${percent}%`;
@@ -125,14 +142,13 @@ class App {
 
   private createParticleText() {
     const text = `The words
-    leave me and are reflected 
-                          back
-    into my ear into your ear
-                   The words
-          leave me and are reflected back
-       into my ear into your ear`;
+    leave me and are reflected
+    into my ears into your ears
+                The words
+            leave me and are reflected
+          into my ears into your ears`;
     const vw = window.innerWidth;
-    const fontSize = vw < 768 ? vw * 0.25 : vw * 0.1;
+    const fontSize = vw < 768 ? vw * 0.3 : vw * 0.1;
     const fontFamily = 'Timeless';
     const color = '#ff5733';
 
@@ -175,7 +191,6 @@ class App {
     this.scene.clear();
     this.scene.add(this.particles);
 
-    // Center particle block vertically
     this.particles.position.y = 0;
   }
 
@@ -197,7 +212,6 @@ class App {
       return t * t * (3 - 2 * t);
     };
 
-    // Account for translation when hovering
     const translateY = this.particles.position.y;
 
     for (let i = 0; i < attr.count; i++) {
@@ -226,6 +240,7 @@ class App {
     attr.needsUpdate = true;
     this.renderer.render(this.scene, this.camera);
     requestAnimationFrame(this.animate.bind(this));
+
   }
 
   private onResize() {
@@ -246,5 +261,4 @@ class App {
 
 export default App;
 new App();
-
 
