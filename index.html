@@ -3,27 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="color-gamut" content="srgb">
   <title>The words leave me and are reflected back into my ear into your ear</title>
   
-  <script type="module" crossorigin src="/assets/index-0d879778.js"></script>
-  <link rel="stylesheet" href="/assets/index-124f3087.css">
+
+  <script type="module" crossorigin src="/assets/index-0adc56a7.js"></script>
+  <link rel="stylesheet" href="/assets/index-f33bfea9.css">
 </head>
 <body>
 
-  <canvas id="webgl-canvas"></canvas> <!-- Canvas를 콘텐츠 위로 올림 -->
-
-  <div class="content">
-    <div class="container">
-      <section class="section__heading">
-        <h2 class="text__1">
-          <span>The words</span><br>
-          <span>leave me and are reflected back</span><br>
-          <span>into my ear into your ear</span>
-        </h2>
-      </section>
+<div id="canvas-wrapper" style="position: fixed; width: 100vw; height: 100vh;">
+  <canvas id="webgl-canvas" style="position: absolute; top: 0; left: 0; z-index: 0;"></canvas>
+</div>
+    <div id="bassAvgDisplay" style="
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+      font-family: monospace;
+      font-size: 14px;
+      z-index: 10;
+    ">
     </div>
-    <button id="play-btn">Play</button>
+  <div class="content">
+      <div class="container">
+        <section class="section__heading">
+            <div class="vertical-box">
+              <h2 class="text__1">Delayed time puts another<br>...</h2>
+            </div>
+        </section>
+      </div>
+    </div>
+  <div class="btn-wrapper">
+  <button id="play-btn"></button>
   </div>
 
   
